@@ -1,8 +1,8 @@
 @CHARSET "UTF-8";
 
-DIV.header{
-	color:aqua;
-	background-image: url('../images/airplane.png');
-	background-size: 100% 100%;
+DIV.header {
+	color: black;
+	background-image: url('../images/banner.jpeg');
 	background-repeat: no-repeat;
+	background-size: 100%;
 }
