@@ -40,7 +40,7 @@ public class HomeController {
 	@RequestMapping("/hello")
 	public ModelAndView helloWorld(){
 		
-		String message = "Hello world!";
+		String message = "ASDF";
 		
 		return new ModelAndView("hello","message", message);
 	}

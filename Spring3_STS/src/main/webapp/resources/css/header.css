@@ -1,8 +1,10 @@
 @CHARSET "UTF-8";
 
 DIV.header {
-	color: black;
+	color: navy;
 	background-image: url('../images/banner.jpeg');
 	background-repeat: no-repeat;
 	background-size: 100%;
+	
+	
 }
