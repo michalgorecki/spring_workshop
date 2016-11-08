@@ -79,7 +79,7 @@
 					<td>${address.postalCode}</td>
 					<td>${address.buildingNumber}</td>
 					<td>${address.flatNumber}</td>
-					<td><a href="delete/${address.id}.html">delete</a></td>
+					<td><a href="deleteAddress/${address.id}.html">delete</a></td>
 					<td><a href="address.html?addressId=${address.id}">edit</a></td>
 				</tr>
 			</c:forEach>

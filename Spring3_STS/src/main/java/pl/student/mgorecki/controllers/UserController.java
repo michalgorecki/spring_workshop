@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import pl.student.mgorecki.domain.User;
 import pl.student.mgorecki.service.UserService;
+import pl.student.mgorecki.validators.UserValidator;
 
 @Controller
 @SessionAttributes
@@ -26,6 +27,8 @@ public class UserController {
 
 	@Autowired
 	UserService userService;
+
+	UserValidator userValidator = new UserValidator();
 
 	@RequestMapping(value = "/users")
 	public String listUsers(Map<String, Object> map, HttpServletRequest request) {
@@ -44,18 +47,23 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/addUser", method = RequestMethod.POST)
-	public String addContact(@ModelAttribute("user") User user, BindingResult result) {
+	public String addContact(@ModelAttribute("user") User user, BindingResult result, HttpServletRequest request,
+			Map<String, Object> map) {
 
-		if (user.getId() == 0) {
-			userService.addUser(user);
-		} else {
-			userService.editUser(user);
+		userValidator.validate(user, result);
+		if (result.getErrorCount() == 0) {
+			if (user.getId() == 0) {
+				userService.addUser(user);
+			} else {
+				userService.editUser(user);
+			}
+			System.out.println("First name: " + user.getFirstname() + ", last name: " + user.getLastname() + ", email: "
+					+ user.getEmail() + ", telephone: " + user.getTelephone());
+
+			return "redirect:users.html";
 		}
-
-		System.out.println("First name: " + user.getFirstname() + ", last name: " + user.getLastname() + ", email: "
-				+ user.getEmail() + ", telephone: " + user.getTelephone());
-
-		return "redirect:users.html";
+		map.put("userList", userService.listUser());
+		return "user";
 	}
 
 	@RequestMapping("/delete/{userId}")

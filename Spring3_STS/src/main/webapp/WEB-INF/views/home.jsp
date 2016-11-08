@@ -14,7 +14,7 @@
 <P> Hi,
 <br>The time on the server is ${serverTime}</P>
 <a href="mgorecki/hello.html">Hello</a>
-
+<a href="mgorecki/admin.html">Admin page</a>
 <a href="mgorecki/users.html">User</a>
 </body>
 </html>

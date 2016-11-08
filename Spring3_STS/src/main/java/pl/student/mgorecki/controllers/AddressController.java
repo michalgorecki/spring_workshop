@@ -55,8 +55,9 @@ public class AddressController {
 		return "redirect:address.html";
 	}
 
-	@RequestMapping("/delete/{addressId}")
+	@RequestMapping("/deleteAddress/{addressId}")
 	public String deleteAddress(@PathVariable("addressId") Integer addressId) {
+		System.out.println("Entered deleteAddress method, id: "+addressId);
 		addressService.removeAddress(addressId);
 		return "redirect:/address.html";
 	}

@@ -21,24 +21,28 @@
 						<spring:message code="label.firstname" />
 					</form:label></td>
 				<td><form:input path="firstname" /></td>
+				<td><form:errors path="firstname"></form:errors>
 			</tr>
 			<tr>
 				<td><form:label path="lastname">
 						<spring:message code="label.lastname" />
 					</form:label></td>
 				<td><form:input path="lastname" /></td>
+				<td><form:errors path="lastname"></form:errors>
 			</tr>
 			<tr>
 				<td><form:label path="email">
 						<spring:message code="label.email" />
 					</form:label></td>
 				<td><form:input path="email" /></td>
+				<td><form:errors path="email"></form:errors>
 			</tr>
 			<tr>
 				<td><form:label path="telephone">
 						<spring:message code="label.telephone" />
 					</form:label></td>
 				<td><form:input path="telephone" /></td>
+				<td><form:errors path="telephone"></form:errors>
 			</tr>
 			<tr>
 				<td colspan="2"><c:if test="${user.id==0}">
