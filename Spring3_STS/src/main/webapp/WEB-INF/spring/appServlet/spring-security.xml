@@ -9,7 +9,15 @@
  
 	<http auto-config="true">
 		<intercept-url pattern="/admin**" access="ROLE_USER" />
-		<logout logout-success-url="/" logout-url="/j_spring_security_logout"/>
+		<form-login 
+		    login-page="/login.html" 
+		    default-target-url="/hello.html" 
+			authentication-failure-url="/login.html?error" 
+			username-parameter="username"
+			password-parameter="password" />
+		<logout logout-success-url="/login.html?logout" />
+		<!-- enable csrf protection -->
+		<csrf/>
 	</http>
  
 	<authentication-manager>
