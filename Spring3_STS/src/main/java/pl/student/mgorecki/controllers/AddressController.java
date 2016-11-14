@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import pl.student.mgorecki.domain.Address;
 import pl.student.mgorecki.service.AddressService;
+import pl.student.mgorecki.validators.AddressValidator;
 
 @Controller
 @SessionAttributes
@@ -23,6 +24,8 @@ import pl.student.mgorecki.service.AddressService;
 public class AddressController {
 	@Autowired
 	AddressService addressService;
+	
+	AddressValidator addressValidator = new AddressValidator();
 
 	@RequestMapping(value = "/address")
 	public String listAddress(Map<String, Object> map, HttpServletRequest request) {
@@ -41,18 +44,25 @@ public class AddressController {
 	}
 
 	@RequestMapping(value = "/addAddress", method = RequestMethod.POST)
-	public String addContact(@ModelAttribute("address") Address address, BindingResult result) {
+	public String addAddress(@ModelAttribute("address") Address address, BindingResult result, Map<String, Object> map) {
 
-		if (address.getId() == 0) {
-			addressService.addAddress(address);
-		} else {
-			addressService.editAddress(address);
+		addressValidator.validate(address, result);
+		if(result.getErrorCount() == 0){
+			if (address.getId() == 0) {
+				addressService.addAddress(address);
+			} else {
+				addressService.editAddress(address);
+			}
+			return "redirect:address.html";
 		}
+		map.put("addressList", addressService.listAddress());
+		return "address";
+		
 
 		/*System.out.println("First name: " + address.getFirstname() + ", last name: " + address.getLastname() + ", email: "
 				+ .getEmail() + ", telephone: " + address.getTelephone());*/
 
-		return "redirect:address.html";
+		
 	}
 
 	@RequestMapping("/deleteAddress/{addressId}")

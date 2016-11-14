@@ -34,5 +34,15 @@ public class AdminController {
 		model.setViewName("login");
 		return model;
 	}
+	@RequestMapping(value = "/404", method = RequestMethod.GET)
+	public ModelAndView accessDenied404() 
+	{
+ 
+		ModelAndView model = new ModelAndView();
+		model.setViewName("404");
+ 
+		return model; 
+ 
+	}
 
 }

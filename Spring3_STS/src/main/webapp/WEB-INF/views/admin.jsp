@@ -27,6 +27,8 @@
 		<h2>
 			Welcome : ${pageContext.request.userPrincipal.name} | <a
 				href="javascript:formSubmit()"> Logout</a>
+				<br>
+				 <a href="userRole.html"><spring:message code="label.role"/></a>
 		</h2>
 	</c:if>
  

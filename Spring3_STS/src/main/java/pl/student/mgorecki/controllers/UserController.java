@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import pl.student.mgorecki.domain.UserRole;
 import pl.student.mgorecki.domain.User;
 import pl.student.mgorecki.service.UserService;
 import pl.student.mgorecki.validators.UserValidator;
@@ -70,6 +71,21 @@ public class UserController {
 	public String deleteUser(@PathVariable("userId") Integer userId) {
 		userService.removeUser(userId);
 		return "redirect:/users.html";
+	}
+
+	@RequestMapping("/userRole")
+	public ModelAndView showUserRole() {
+
+		return new ModelAndView("userRole", "userRole", new UserRole());
+	}
+
+	@RequestMapping(value = "/addUserRole", method = RequestMethod.POST)
+	public String addUserRole(@ModelAttribute("userRole") UserRole userRole, BindingResult result,
+			HttpServletRequest request, Map<String, Object> map) {
+
+		userService.addUserRole(userRole);
+
+		return "redirect:users.html";
 	}
 
 }

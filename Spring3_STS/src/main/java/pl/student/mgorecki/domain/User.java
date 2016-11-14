@@ -1,11 +1,18 @@
 package pl.student.mgorecki.domain;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import pl.student.mgorecki.domain.UserRole;
 
 @Entity
 @Table(name="user")
@@ -20,6 +27,13 @@ public class User {
     private String lastname;
     private String email;
     private String telephone;
+    
+    private String login;
+	private String password;
+	private boolean enabled;
+
+	@ManyToMany(fetch = FetchType.LAZY)
+	private Set<UserRole> userRole = new HashSet<UserRole>(0);
     
 	public int getId() {
 		return id;
@@ -50,6 +64,30 @@ public class User {
 	}
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
+	}
+	public String getLogin() {
+		return login;
+	}
+	public void setLogin(String login) {
+		this.login = login;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public boolean isEnabled() {
+		return enabled;
+	}
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+	public Set<UserRole> getUserRole() {
+		return userRole;
+	}
+	public void setUserRole(Set<UserRole> userRole) {
+		this.userRole = userRole;
 	}
     
 }

@@ -21,24 +21,28 @@
 						<spring:message code="label.city" />
 					</form:label></td>
 				<td><form:input path="city" /></td>
+				<td><form:errors path="city"></form:errors></td>
 			</tr>
 			<tr>
 				<td><form:label path="street">
 						<spring:message code="label.street" />
 					</form:label></td>
 				<td><form:input path="street" /></td>
+				<td><form:errors path="street"></form:errors></td>
 			</tr>
 			<tr>
 				<td><form:label path="postalCode">
 						<spring:message code="label.postalcode" />
 					</form:label></td>
 				<td><form:input path="postalCode" /></td>
+				<td><form:errors path="postalCode"></form:errors></td>
 			</tr>
 			<tr>
 				<td><form:label path="buildingNumber">
 						<spring:message code="label.buildingnumber" />
 					</form:label></td>
 				<td><form:input path="buildingNumber" /></td>
+				<td><form:errors path="buildingNumber"></form:errors></td>
 			</tr>
 			<tr>
 				<td><form:label path="flatNumber">
