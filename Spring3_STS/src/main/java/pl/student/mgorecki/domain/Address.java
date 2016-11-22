@@ -1,10 +1,13 @@
 package pl.student.mgorecki.domain;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -21,6 +24,9 @@ public class Address {
 	private String postalCode;
 	private int buildingNumber;
 	private int flatNumber;
+	
+	@OneToMany(mappedBy="address")
+	private List<User> userList;
 	
 	public void setId(int id) {
 		this.id = id;

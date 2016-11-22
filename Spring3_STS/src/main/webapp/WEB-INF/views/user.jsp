@@ -37,15 +37,39 @@
         <td><form:errors path="lastname"/></td>
     </tr>
     <tr>
+        <td><form:hidden path="pesel.id"/>
+    </tr>
+    <tr>
+        <td><form:label path="pesel.PESEL"><spring:message code="label.pesel"/></form:label></td>
+        <td><form:input path="pesel.PESEL" /></td>
+        <td><form:errors path="pesel.PESEL"/></td>
+    </tr>
+    <tr>
         <td><form:label path="email"><spring:message code="label.email"/></form:label></td>
         <td><form:input path="email" /></td>
         <td><form:errors path="email"/></td>
     </tr>
     <tr>
+		<td><form:label path="address"><spring:message code="label.address"/></form:label></td>
+		<td><form:select path="address">
+				<c:forEach items="${addressesList}" var="address">
+        			<option value="${address.id}" ${address.id == selectedAddress ? 'selected="selected"' : ''}>${address.street}</option>
+   				</c:forEach>
+		</form:select></td>
+		<td><form:errors path="address"/></td>
+	</tr>    
+    <tr>
         <td><form:label path="telephone"><spring:message code="label.telephone"/></form:label></td>
         <td><form:input path="telephone" /></td>
         <td><form:errors path="telephone"/></td>
     </tr>
+    <tr>
+		<td><form:label path="userRole"><spring:message code="label.role"/></form:label></td>
+		<td><form:select path="userRole" multiple="true">
+				<form:options items="${userRoleList}" itemValue="id" itemLabel="role"/>
+		</form:select></td>
+		<td><form:errors path="userRole"/></td>
+	</tr>
     <tr>
         <td><form:label path="enabled"><spring:message code="label.enabled"/></form:label></td>
         <td><form:checkbox path="enabled" /></td>

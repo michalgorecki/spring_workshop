@@ -20,7 +20,10 @@ public class UserServiceImpl implements UserService{
 	
 	@Transactional
 	public void addUser(User user) {
-		user.getUserRole().add(userDAO.findRoleByName("ROLE_USER"));
+		/*user.getUserRole().add(userDAO.findRoleByName("ROLE_USER"));
+		 * 
+		 * Rola jest wybierana z listy w formularzu!
+		 * */
 		user.setPassword(hashPassword(user.getPassword()));
 		userDAO.addUser(user);
 	}

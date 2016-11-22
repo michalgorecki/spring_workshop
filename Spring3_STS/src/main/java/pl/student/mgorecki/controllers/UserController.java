@@ -18,6 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import pl.student.mgorecki.domain.UserRole;
 import pl.student.mgorecki.domain.User;
+import pl.student.mgorecki.service.AddressService;
+import pl.student.mgorecki.service.PeselService;
 import pl.student.mgorecki.service.UserService;
 import pl.student.mgorecki.validators.UserValidator;
 
@@ -28,6 +30,12 @@ public class UserController {
 
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	PeselService peselService;
+	
+	@Autowired
+	AddressService addressService;
 
 	UserValidator userValidator = new UserValidator();
 
@@ -37,11 +45,18 @@ public class UserController {
 		int userId = ServletRequestUtils.getIntParameter(request, "userId", -1);
 
 		if (userId > 0) {
-			map.put("user", userService.getUser(userId));
+			User user = userService.getUser(userId);
+			user.setPassword("");
+			user.setAddress(addressService.getAddress(userService.getUser(userId).getAddress().getId()));
+			map.put("selectedAddress",userService.getUser(userId).getAddress().getId());
+			map.put("user", user);
+			
 		} else {
 			map.put("user", new User());
 		}
-
+		
+		map.put("userRoleList",userService.listUserRole());
+		map.put("addressesList", addressService.listAddress());
 		map.put("userList", userService.listUser());
 
 		return "user";
@@ -52,19 +67,33 @@ public class UserController {
 			Map<String, Object> map) {
 
 		userValidator.validate(user, result);
+		
 		if (result.getErrorCount() == 0) {
-			if (user.getId() == 0) {
-				userService.addUser(user);
-			} else {
+			if (user.getId()==0)
+			   {
+				   if (user.getPesel().getId() == 0)
+					   peselService.addPesel(user.getPesel());
+				   if (user.getAddress().getId() > 0)
+					   user.setAddress(addressService.getAddress(user.getAddress().getId()));
+				   userService.addUser(user);
+			   }
+				
+			 else {
+				peselService.editPesel(user.getPesel());
 				userService.editUser(user);
 			}
 			System.out.println("First name: " + user.getFirstname() + ", last name: " + user.getLastname() + ", email: "
 					+ user.getEmail() + ", telephone: " + user.getTelephone());
 
 			return "redirect:users.html";
+		}else{
+			
+			map.put("userRoleList",userService.listUserRole());
+			map.put("addressesList", addressService.listAddress());
+			map.put("userList", userService.listUser());
+			return "user";
 		}
-		map.put("userList", userService.listUser());
-		return "user";
+		
 	}
 
 	@RequestMapping("/delete/{userId}")

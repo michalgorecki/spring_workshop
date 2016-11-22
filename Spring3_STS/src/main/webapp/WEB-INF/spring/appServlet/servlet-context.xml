@@ -10,7 +10,19 @@
 		infrastructure -->
 
 	<!-- Enables the Spring MVC @Controller programming model -->
-	<annotation-driven />
+	<annotation-driven conversion-service="conversionService" />
+
+	<beans:bean id="conversionService"
+		class="org.springframework.context.support.ConversionServiceFactoryBean">
+		<beans:property name="converters">
+			<beans:set>
+				<beans:bean class="pl.student.mgorecki.utils.AddressConverter"></beans:bean>
+				<beans:bean class="pl.student.mgorecki.utils.UserRoleConverter"></beans:bean>
+				<beans:bean class="pl.student.mgorecki.utils.UserRoleListConverter"></beans:bean>
+
+			</beans:set>
+		</beans:property>
+	</beans:bean>
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
 		up static resources in the ${webappRoot}/resources directory -->
@@ -27,20 +39,21 @@
 		<beans:property name="definitions"
 			value="/WEB-INF/spring/appServlet/tiles.xml" />
 	</beans:bean>
-	
+
 	<beans:bean id="messageSource"
 		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
 		<beans:property name="basename" value="classpath:messages/messages"></beans:property>
 		<beans:property name="defaultEncoding" value="UTF-8"></beans:property>
 	</beans:bean>
-	
+
 	<interceptors>
 		<beans:bean id="LocaleChangeInterceptor"
 			class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
 			<beans:property name="paramName" value="appLang"></beans:property>
 		</beans:bean>
 	</interceptors>
-	<beans:bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+	<beans:bean id="localeResolver"
+		class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
 		<beans:property name="defaultLocale" value="en"></beans:property>
 	</beans:bean>
 
@@ -52,8 +65,8 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 
-	
-	
+
+
 
 	<context:component-scan base-package="pl.student.mgorecki.controllers" />
 
