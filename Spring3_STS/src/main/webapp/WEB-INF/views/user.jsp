@@ -6,6 +6,16 @@
 
 <html>
 <head>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" href="resources/startbootstrap-creative-gh-pages/css/creative.min.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title><spring:message code="label.title"/></title>
 </head>
@@ -42,7 +52,7 @@
     <tr>
         <td><form:label path="pesel.PESEL"><spring:message code="label.pesel"/></form:label></td>
         <td><form:input path="pesel.PESEL" /></td>
-        <td><form:errors path="pesel.PESEL"/></td>
+        <td><form:errors path="pesel"/></td>
     </tr>
     <tr>
         <td><form:label path="email"><spring:message code="label.email"/></form:label></td>
