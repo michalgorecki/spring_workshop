@@ -1,5 +1,6 @@
 package pl.student.mgorecki.domain;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -10,14 +11,13 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import pl.student.mgorecki.domain.Address;
-import pl.student.mgorecki.domain.Pesel;
-import pl.student.mgorecki.domain.UserRole;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "user")
@@ -41,7 +41,15 @@ public class User {
 
 	@ManyToOne
 	private Address address;
+	
+	@Temporal(TemporalType.DATE)
+	private Date dataUrodzenia;
+	@Lob
+	private byte[] picture;
 
+	
+
+	
 	private String login;
 	private String password;
 	private boolean enabled;
@@ -133,4 +141,20 @@ public class User {
 	public void setAddress(Address address) {
 		this.address = address;
 	}
+	public Date getDataUrodzenia() {
+		return dataUrodzenia;
+	}
+
+	public void setDataUrodzenia(Date dataUrodzenia) {
+		this.dataUrodzenia = dataUrodzenia;
+	}
+	
+	public byte[] getPicture() {
+		return picture;
+	}
+
+	public void setPicture(byte[] picture) {
+		this.picture = picture;
+	}
+
 }

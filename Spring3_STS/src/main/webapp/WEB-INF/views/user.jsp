@@ -6,6 +6,7 @@
 
 <html>
 <head>
+
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
@@ -16,12 +17,28 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <link rel="stylesheet" href="resources/startbootstrap-creative-gh-pages/css/creative.min.css">
+
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
 <title><spring:message code="label.title"/></title>
+
+<script>
+	$(document).ready(function() {
+  		$("#datepicker").datepicker({ dateFormat: 'yy-mm-dd' });
+  	});
+</script>
+
+
+
+
 </head>
 <body>
 <h2><spring:message code="label.user"/></h2>
-<form:form method="post" action="addUser.html" commandName="user">
+<form:form method="POST" action="addUser.html?${_csrf.parameterName}=${_csrf.token}" commandName="user" enctype="multipart/form-data">
     <table>
     <tr>
         <td><form:hidden path="id"/>
@@ -49,6 +66,13 @@
     <tr>
         <td><form:hidden path="pesel.id"/>
     </tr>
+    
+     <tr>
+        <td><form:label path="dataUrodzenia"><spring:message code="label.dataUrodzenia"/></form:label></td>
+        <td><form:input path="dataUrodzenia" id="datepicker"/></td>
+        <td><form:errors path="dataUrodzenia"/></td>
+    </tr>
+    
     <tr>
         <td><form:label path="pesel.PESEL"><spring:message code="label.pesel"/></form:label></td>
         <td><form:input path="pesel.PESEL" /></td>
@@ -85,11 +109,27 @@
         <td><form:checkbox path="enabled" /></td>
         <td><form:errors path="enabled"/></td>
     </tr>
+    <tr>
+ 		<td><form:label path="picture"><spring:message code="label.picture"/></form:label>	</td>
+ 		<td>
+	<c:if test="${user.id != 0}">
+	
+		<c:if test="${not empty user.picture}">
+	 	<a href="<c:url value="users/picture.html?userId=${user.id}"/>" target="_blank"><spring:message code="picture.download"/></a>
+		</c:if>
+	
+		<c:if test="${empty user.picture}">
+	 	<a><spring:message code="picture.noPicture"/></a>
+		</c:if>
+		<br>
+	</c:if>	
+	<input id="picture" name="picture" type="file"/> </td>
+    </tr>
     
     
     
     <tr>
-        <td colspan="2">
+        <td colspan="4">
         <c:if test="${user.id==0}">
             <input type="submit" value="<spring:message code="label.adduser"/>"/>
         </c:if>

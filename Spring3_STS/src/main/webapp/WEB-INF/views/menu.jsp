@@ -14,9 +14,9 @@
 <link rel="stylesheet" href="resources/startbootstrap-creative-gh-pages/css/creative.min.css">
 </head>
 <div class="body">
-<button class="btn btn-primary" href=users.html>Users</a></button>
+<a class="btn btn-primary" href=users.html>Users</a>
 <br>
-<button class="btn btn-primary" href=address.html>Addresses</a></button>
+<a class="btn btn-primary" href=address.html>Addresses</a>
 <br>
-<button class="btn btn-primary" href="userRole.html"><spring:message code="label.role"/></a></button>
+<a class="btn btn-primary" href="userRole.html"><spring:message code="label.role"/></a>
 </div>

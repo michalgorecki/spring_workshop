@@ -36,12 +36,23 @@
 	border: 1px solid #000;
 }
 </style>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" href="resources/startbootstrap-creative-gh-pages/css/creative.min.css">
 </head>
 <body onload='document.loginForm.username.focus();'>
 
-	<h1>Spring Security Custom Login Form (XML)</h1>
+	<navbar class="navbar">Login page</navbar>
+	<section class="bg-primary">
 
-	<div id="login-box">
+	<div class="bg-dark">
 
 		<h3>Login with Username and Password</h3>
 
@@ -65,7 +76,7 @@
 					<td><input type='password' name='password' /></td>
 				</tr>
 				<tr>
-					<td colspan='2'><input name="submit" type="submit"
+					<td colspan='2'><input name="submit" type="btn-dark"
 						value="submit" /></td>
 				</tr>
 			</table>
@@ -75,6 +86,10 @@
 
 		</form>
 	</div>
+
+
+
+	</section>
 
 </body>
 </html>

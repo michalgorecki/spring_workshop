@@ -1,9 +1,11 @@
 package pl.student.mgorecki.controllers;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.Map;
 
-import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,11 +15,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import pl.student.mgorecki.domain.UserRole;
 import pl.student.mgorecki.domain.User;
+import pl.student.mgorecki.domain.UserRole;
 import pl.student.mgorecki.service.AddressService;
 import pl.student.mgorecki.service.PeselService;
 import pl.student.mgorecki.service.UserService;
@@ -64,7 +68,7 @@ public class UserController {
 
 	@RequestMapping(value = "/addUser", method = RequestMethod.POST)
 	public String addContact(@ModelAttribute("user") User user, BindingResult result, HttpServletRequest request,
-			Map<String, Object> map) {
+			Map<String, Object> map, @RequestParam("picture") MultipartFile file) throws IOException {
 
 		userValidator.validate(user, result);
 		
@@ -75,6 +79,8 @@ public class UserController {
 					   peselService.addPesel(user.getPesel());
 				   if (user.getAddress().getId() > 0)
 					   user.setAddress(addressService.getAddress(user.getAddress().getId()));
+				   if(file.getBytes() != null)
+					   user.setPicture(file.getBytes());
 				   userService.addUser(user);
 			   }
 				
@@ -116,5 +122,32 @@ public class UserController {
 
 		return "redirect:users.html";
 	}
+	
+	@RequestMapping(value = "/users/picture.html")
+	public void pobierzPicture(HttpServletRequest request, HttpServletResponse response) {
+		
+	int userId = ServletRequestUtils.getIntParameter(request, "userId", -1);
+		
+   	if (userId<1) return; 
+   	
+       User user = userService.getUser(userId);
+       
+       if (user.getPicture() == null)
+       	{
+       	 return;
+       	}
+         
+       try {
+			OutputStream o = response.getOutputStream();
+			response.setCharacterEncoding("UTF-8");
+			response.setContentType("image/jpg");
+			response.setHeader("Content-Disposition", "inline; filename=picture.jpg");
+			if (user.getPicture() != null) {
+				o.write(user.getPicture());
+			}
+			o.flush();
+			o.close();
+		} catch (IOException e) {	}
+   }
 
 }
