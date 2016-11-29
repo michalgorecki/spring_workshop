@@ -49,7 +49,7 @@
 </head>
 <body onload='document.loginForm.username.focus();'>
 
-	<navbar class="navbar">Login page</navbar>
+	<navbar class="navbar"><h1>Login page</h1></navbar>
 	<section class="bg-primary">
 
 	<div class="bg-dark">
@@ -76,7 +76,7 @@
 					<td><input type='password' name='password' /></td>
 				</tr>
 				<tr>
-					<td colspan='2'><input name="submit" type="btn-dark"
+					<td colspan='2'><input name="submit" type="submit"
 						value="submit" /></td>
 				</tr>
 			</table>

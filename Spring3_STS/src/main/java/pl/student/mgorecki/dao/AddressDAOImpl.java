@@ -29,7 +29,7 @@ public class AddressDAOImpl implements AddressDAO {
 	@Transactional
 	public void removeAddress(int id) {
 		Address address = (Address) sessionFactory.getCurrentSession().load(
-                User.class, id);
+                Address.class, id);
         if (null != address) {
             sessionFactory.getCurrentSession().delete(address);
         }
